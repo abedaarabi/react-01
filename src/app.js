@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Abed from "./Abed";
+import StrParam from "./StrParam";
 
 const App = () => {
   return (
     <div>
       <h1>hello World!</h1>
-      <Abed />
+      <StrParam />
     </div>
   );
 };

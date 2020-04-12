@@ -1,12 +1,22 @@
-import React, { useState } from "react";
-import { ANIMALS } from "@frontendmasters/pet";
+import React, { useState, useEffect } from "react";
+import pet, { ANIMALS } from "@frontendmasters/pet";
 import useDropdown from "./useDropdown";
 
-const Abed = () => {
+const StrParam = () => {
   const [location, setLocation] = useState("Copenhagen DK");
-  const [breeds, updateBreeds] = useState([]);
+  const [breeds, setBreeds] = useState([]);
   const [animal, AnimalDropdown] = useDropdown("Animal", "dog", ANIMALS);
-  const [breed, BreedDropdown] = useDropdown("Breed", " ", breeds);
+  const [breed, BreedDropdown, setBreed] = useDropdown("Breed", " ", breeds);
+  useEffect(() => {
+    setBreeds([]);
+    setBreed("");
+    pet.breeds(animal).then(({ breeds: apiBreed }) => {
+      const strBreed = apiBreed.map(({ name }) => name);
+      console.log(strBreed);
+
+      setBreeds(strBreed);
+    }, console.error);
+  }, [animal, setBreed, setBreeds]);
 
   return (
     <div className="search-params">
@@ -27,4 +37,4 @@ const Abed = () => {
     </div>
   );
 };
-export default Abed;
+export default StrParam;
